@@ -1,0 +1,3 @@
+[submodule "weui"]
+	path = weui
+	url = https://github.com/Tencent/weui.git
