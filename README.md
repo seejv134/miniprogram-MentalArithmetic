@@ -1,0 +1,2 @@
+# miniprogram-MentalArithmetic
+wechat miniprogram
