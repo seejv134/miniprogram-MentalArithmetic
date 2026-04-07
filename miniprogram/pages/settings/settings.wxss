@@ -1,39 +1,61 @@
-.settings {
-  padding: 24rpx 28rpx 120rpx;
-  min-height: 100vh;
-  background: #F5F7FA;
+/* 动画：流体呼吸背景 (与 practice 保持完全一致) */
+@keyframes breathing {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* 卡片 */
+.settings {
+  padding: 32rpx 32rpx 160rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
+  /* 晨雾蓝到珍珠白的渐变，营造流体感 */
+  background: linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E8F0FE, #F5F7FA);
+  background-size: 400% 400%;
+  animation: breathing 15s ease infinite;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* 毛玻璃卡片 */
 .card {
-  background: #ffffff;
-  border-radius: 20rpx;
-  margin-bottom: 24rpx;
+  /* 核心：毛玻璃效果 (Glassmorphism) */
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32rpx;
+  margin-bottom: 32rpx;
   overflow: hidden;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  box-shadow: 0 8rpx 32rpx rgba(113, 128, 150, 0.05);
+  transition: all 0.3s ease;
 }
 
 .card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx 32rpx;
+  padding: 32rpx 40rpx;
   gap: 24rpx;
 }
 
 .card__header-main {
   flex: 1;
   min-width: 0;
-  border-radius: 12rpx;
+  border-radius: 16rpx;
+  padding: 12rpx;
+  margin: -12rpx;
+  transition: background-color 0.3s ease;
 }
 
-/* 与 WeUI cell 一致：用 hover-class 做按下反馈，避免依赖 :active 整页重绘 */
+/* 悬浮反馈：柔和的白色高光 */
 .card__header-main--hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .card__switch {
   flex-shrink: 0;
+  /* 稍微缩小一点开关，让它显得更精致 */
+  transform: scale(0.9);
 }
 
 .card__title-row {
@@ -42,44 +64,34 @@
   gap: 16rpx;
 }
 
-.range-preview--header {
-  display: block;
-  margin-top: 10rpx;
-  font-size: 22rpx;
-  color: #6B7280;
-  line-height: 1.45;
-  font-weight: 400;
-  word-break: break-all;
-}
-
-.card__title-row--stack {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8rpx;
-}
-
 .card__title {
-  font-size: 34rpx;
-  font-weight: 700;
-  color: #222222;
+  font-size: 36rpx;
+  font-weight: 400; /* 降低字重，增加优雅感 */
+  color: #2D3748;
 }
 
 .card__level-tag {
-  font-size: 24rpx;
-  padding: 4rpx 16rpx;
-  border-radius: 20rpx;
-  background: #EEEEEE;
-  color: #999999;
+  font-size: 22rpx;
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+  background: rgba(226, 232, 240, 0.6);
+  color: #718096;
+  font-weight: 300;
 }
 
-.card__level-tag--on {
-  background: #E3F0FF;
-  color: #4A90E2;
+.range-preview--header {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #718096;
+  line-height: 1.5;
+  font-weight: 300;
+  word-break: break-all;
 }
 
 .card__body {
-  border-top: 1rpx solid #F0F0F0;
-  padding: 12rpx 32rpx 24rpx;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 24rpx 40rpx 32rpx;
 }
 
 /* 表单行 */
@@ -87,147 +99,130 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid #F5F5F5;
+  padding: 24rpx 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .form-row:last-child {
   border-bottom: none;
 }
 
-.card--help {
-  margin-bottom: 24rpx;
-}
-
-.card__header--help {
-  padding: 28rpx 32rpx;
-}
-
-.card__header--help:active {
-  background: #f8fafc;
-}
-
-.card__sub {
-  font-size: 24rpx;
-  color: #888888;
-  font-weight: 400;
-}
-
-.card__chevron {
-  font-size: 44rpx;
-  color: #cccccc;
-  line-height: 1;
-  padding-left: 16rpx;
-}
-
 .form-label {
   font-size: 30rpx;
-  color: #444444;
+  color: #4A5568;
+  font-weight: 300;
 }
 
-.picker-val {
-  font-size: 30rpx;
-  color: #4A90E2;
-  padding: 4rpx 20rpx;
-  background: #E3F0FF;
-  border-radius: 20rpx;
-}
-
-/* 分段控制器 */
+/* 分段控制器：毛玻璃风格 */
 .seg-ctrl {
   display: flex;
-  border: 2rpx solid #4A90E2;
-  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24rpx;
   overflow: hidden;
+  padding: 4rpx;
 }
 
 .seg-ctrl__item {
   font-size: 26rpx;
-  padding: 8rpx 24rpx;
-  color: #4A90E2;
-  background: #ffffff;
+  padding: 12rpx 32rpx;
+  color: #718096;
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
 }
 
 .seg-ctrl__item--active {
-  background: #4A90E2;
-  color: #ffffff;
+  background: #ffffff;
+  color: #4A90E2;
+  box-shadow: 0 4rpx 12rpx rgba(74, 144, 226, 0.1);
+  font-weight: 400;
 }
 
 .seg-ctrl__item--hover:not(.seg-ctrl__item--active) {
-  background-color: #f0f7ff;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
-.seg-ctrl__item--active.seg-ctrl__item--hover {
-  background-color: #3d7fc4;
-}
-
-/* 自定义范围输入 */
+/* 自定义范围输入：柔和的输入框 */
 .custom-range {
-  padding: 12rpx 0;
+  padding: 16rpx 0;
 }
 
 .custom-range__row {
   display: flex;
   align-items: center;
-  gap: 12rpx;
-  margin-bottom: 16rpx;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
 }
 
 .custom-range__label {
-  font-size: 26rpx;
-  color: #666666;
-  width: 100rpx;
+  font-size: 28rpx;
+  color: #4A5568;
+  width: 140rpx;
   flex-shrink: 0;
+  font-weight: 300;
 }
 
 .custom-range__input {
   flex: 1;
-  height: 64rpx;
-  border: 2rpx solid #E0E0E0;
-  border-radius: 12rpx;
-  padding: 0 16rpx;
-  font-size: 28rpx;
-  color: #333333;
+  height: 72rpx;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  color: #2D3748;
   text-align: center;
-  background: #FAFAFA;
+  transition: all 0.3s ease;
+}
+
+.custom-range__input:focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 4rpx rgba(74, 144, 226, 0.1);
 }
 
 .custom-range__sep {
   font-size: 28rpx;
-  color: #999999;
+  color: #A0AEC0;
 }
 
-/* 错误提示和红框 */
+/* 错误提示和红框：莫兰迪红 */
 .has-error .custom-range__input,
 .has-error .seg-ctrl {
-  border-color: #FF4D4F;
-  background-color: #FFF2F2;
+  border-color: rgba(245, 101, 101, 0.5);
+  background-color: rgba(254, 215, 215, 0.4);
 }
 
 .error-tip {
   font-size: 24rpx;
-  color: #FF4D4F;
-  margin-top: 8rpx;
-  margin-bottom: 8rpx;
+  color: #C53030;
+  margin-top: 12rpx;
+  margin-bottom: 12rpx;
+  font-weight: 300;
 }
 
-/* 保存按钮 */
+/* 保存按钮：悬浮毛玻璃胶囊 */
 .save-btn {
   position: fixed;
-  bottom: 48rpx;
-  left: 40rpx;
-  right: 40rpx;
-  background: #4A90E2;
-  color: #ffffff;
+  bottom: 60rpx;
+  left: 60rpx;
+  right: 60rpx;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #4A5568;
   font-size: 34rpx;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
-  padding: 28rpx 0;
-  border-radius: 48rpx;
-  box-shadow: 0 8rpx 24rpx rgba(74,144,226,0.35);
+  padding: 32rpx 0;
+  border-radius: 60rpx;
+  box-shadow: 0 12rpx 32rpx rgba(113, 128, 150, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .save-btn--hover {
-  background: #3d7fc4;
-  box-shadow: 0 6rpx 18rpx rgba(74,144,226,0.3);
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6rpx 16rpx rgba(113, 128, 150, 0.05);
 }

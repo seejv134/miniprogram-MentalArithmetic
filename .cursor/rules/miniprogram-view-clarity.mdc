@@ -1,0 +1,27 @@
+description: 微信小程序视图层规则，强调结构简洁、渲染高效与配置可预测
+globs: miniprogram/**/*.{wxml,wxss,json}
+alwaysApply: false
+---
+
+# 微信小程序视图清晰性
+
+- 参考 WeUI 的简洁原则：信息层级清楚、嵌套尽量浅、状态一眼可见，不为装饰感引入复杂结构。
+- 高频切换区域优先用 `hidden`，低频渲染或成本较高的子树再用 `wx:if`。
+- 所有 `wx:for` 都必须使用稳定的 `wx:key`；除非列表完全静态，否则禁止使用 `index`。
+- 重复结构优先抽成模板或自定义组件，不复制大段 WXML。
+- 页面 JSON 保持最小化并与真实页面/组件一致；删除功能时同步删掉失效组件声明和陈旧配置。
+- WXSS 采用接近 BEM 的命名方式，优先小块复用与 `rpx` 间距；避免深层选择器和一次性大段内联样式。
+- 图片与图标必须必要且经过优化；大图优先 WebP/CDN，示例资源在脚手架阶段结束后及时删除。
+- 交互反馈必须即时且可预测：禁用、加载、空态、错误态要能在 WXML 中直接表达，不依赖“隐藏延时技巧”兜行为。
+
+```wxml
+<!-- ❌ BAD -->
+<view wx:for="{{list}}" wx:key="index">
+  <view style="margin: 17px 13px 9px">{{item.name}}</view>
+</view>
+
+<!-- ✅ GOOD -->
+<view wx:for="{{list}}" wx:key="id" class="goods-list__item">
+  <text class="goods-list__name">{{item.name}}</text>
+</view>
+```

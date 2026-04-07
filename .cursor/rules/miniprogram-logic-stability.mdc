@@ -1,0 +1,34 @@
+description: 微信小程序逻辑层规则，约束定时器安全、setData 效率与页面稳定性
+globs: miniprogram/**/*.js
+alwaysApply: false
+---
+
+# 微信小程序逻辑稳定性
+
+- 页面/组件文件只保留交互与页面状态，纯计算与候选数据优先下沉到 `utils/`。
+- `data` 只存渲染必需字段；定时器、缓存、请求句柄、派生值挂在 `this` 上，不放进 `data`。
+- `setData` 必须小而准：只更新变更字段，优先使用数据路径，禁止为了省事整对象回写。
+- `bindinput`、`bindscroll`、连续点击等高频事件必须加防抖或节流；默认延时使用 150-300ms，除非交互明确要求别的值。
+- 任何 `setTimeout`、`setInterval`、延时切题/延时预览都必须有配套清理；在 `onUnload` 或 `detached` 中清除，并把计时器句柄重置为 `null`。
+- 禁止叠加多个“等 UI 稳定”的魔法延时；优先改成直接状态流转、`nextTick` 或单一受控定时器。
+- 避免在 `onShow` 做重计算或重 IO；初始化放 `onLoad`，`onShow` 只做确实可能过期的数据刷新。
+- 异步流程必须有失败分支；`wx.request`、存储、导航、授权等失败时要给出用户可感知的兜底，不可静默吞错。
+- 校验要靠近输入边界；范围裁剪、默认值归一化应在写入共享状态前完成，避免脏数据扩散。
+
+```javascript
+// ❌ BAD
+onInput(e) {
+  this.setData({ form: { ...this.data.form, keyword: e.detail.value } });
+  setTimeout(() => this.setData({ preview: computePreview(this.data.form) }), 16);
+}
+
+// ✅ GOOD
+onInput(e) {
+  this.setData({ 'form.keyword': e.detail.value });
+  clearTimeout(this._previewTimer);
+  this._previewTimer = setTimeout(() => {
+    this._previewTimer = null;
+    this.setData(buildPreviewPatch(this.data.form));
+  }, 200);
+}
+```
