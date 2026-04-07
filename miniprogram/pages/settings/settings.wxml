@@ -1,0 +1,259 @@
+<view class="settings" wx:if="{{settings}}">
+
+  <!-- 加法卡片 -->
+  <view class="card">
+    <view class="card__header" bindtap="onToggleCard" data-type="addition">
+      <view class="card__title-row">
+        <text class="card__title">加法</text>
+        <text class="card__level-tag" wx:if="{{!settings.addition.enabled}}">已关闭</text>
+        <text class="card__level-tag card__level-tag--on" wx:else>L{{settings.addition.level}}</text>
+      </view>
+      <switch
+        class="card__switch"
+        checked="{{settings.addition.enabled}}"
+        bindchange="onToggleEnabled"
+        data-type="addition"
+        catchtap="stopProp"
+        color="#4A90E2"
+      />
+    </view>
+
+    <view class="card__body" hidden="{{expandedCard !== 'addition'}}">
+      <!-- 难度选择 -->
+      <view class="form-row" wx:if="{{!settings.addition.useCustom}}">
+        <text class="form-label">难度</text>
+        <picker
+          mode="selector"
+          range="{{['L1','L2','L3','L4','L5']}}"
+          value="{{settings.addition.level - 1}}"
+          bindchange="onLevelChange"
+          data-type="addition"
+        >
+          <view class="picker-val">L{{settings.addition.level}}</view>
+        </picker>
+      </view>
+
+      <!-- 自定义开关 -->
+      <view class="form-row">
+        <text class="form-label">自定义范围</text>
+        <switch
+          checked="{{settings.addition.useCustom}}"
+          bindchange="onToggleCustom"
+          data-type="addition"
+          color="#4A90E2"
+        />
+      </view>
+
+      <!-- 自定义范围输入 -->
+      <view wx:if="{{settings.addition.useCustom}}" class="custom-range">
+        <view class="custom-range__row">
+          <text class="custom-range__label">加数1</text>
+          <input class="custom-range__input" type="number" value="{{settings.addition.custom.min1}}" bindinput="onCustomInput" data-type="addition" data-field="min1" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.addition.custom.max1}}" bindinput="onCustomInput" data-type="addition" data-field="max1" placeholder="最大值"/>
+        </view>
+        <view class="custom-range__row">
+          <text class="custom-range__label">加数2</text>
+          <input class="custom-range__input" type="number" value="{{settings.addition.custom.min2}}" bindinput="onCustomInput" data-type="addition" data-field="min2" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.addition.custom.max2}}" bindinput="onCustomInput" data-type="addition" data-field="max2" placeholder="最大值"/>
+        </view>
+      </view>
+
+      <!-- 进位策略 -->
+      <view class="form-row">
+        <text class="form-label">进位策略</text>
+        <view class="seg-ctrl">
+          <view class="seg-ctrl__item {{settings.addition.carryPolicy === 'any' ? 'seg-ctrl__item--active' : ''}}" bindtap="onCarryPolicy" data-policy="any">不限</view>
+          <view class="seg-ctrl__item {{settings.addition.carryPolicy === 'must' ? 'seg-ctrl__item--active' : ''}}" bindtap="onCarryPolicy" data-policy="must">必须进位</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 减法卡片 -->
+  <view class="card">
+    <view class="card__header" bindtap="onToggleCard" data-type="subtraction">
+      <view class="card__title-row">
+        <text class="card__title">减法</text>
+        <text class="card__level-tag" wx:if="{{!settings.subtraction.enabled}}">已关闭</text>
+        <text class="card__level-tag card__level-tag--on" wx:else>L{{settings.subtraction.level}}</text>
+      </view>
+      <switch
+        checked="{{settings.subtraction.enabled}}"
+        bindchange="onToggleEnabled"
+        data-type="subtraction"
+        catchtap="stopProp"
+        color="#4A90E2"
+      />
+    </view>
+
+    <view class="card__body" hidden="{{expandedCard !== 'subtraction'}}">
+      <view class="form-row" wx:if="{{!settings.subtraction.useCustom}}">
+        <text class="form-label">难度</text>
+        <picker
+          mode="selector"
+          range="{{['L1','L2','L3','L4','L5']}}"
+          value="{{settings.subtraction.level - 1}}"
+          bindchange="onLevelChange"
+          data-type="subtraction"
+        >
+          <view class="picker-val">L{{settings.subtraction.level}}</view>
+        </picker>
+      </view>
+
+      <view class="form-row">
+        <text class="form-label">自定义范围</text>
+        <switch
+          checked="{{settings.subtraction.useCustom}}"
+          bindchange="onToggleCustom"
+          data-type="subtraction"
+          color="#4A90E2"
+        />
+      </view>
+
+      <view wx:if="{{settings.subtraction.useCustom}}" class="custom-range">
+        <view class="custom-range__row">
+          <text class="custom-range__label">被减数</text>
+          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.min1}}" bindinput="onCustomInput" data-type="subtraction" data-field="min1" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.max1}}" bindinput="onCustomInput" data-type="subtraction" data-field="max1" placeholder="最大值"/>
+        </view>
+        <view class="custom-range__row">
+          <text class="custom-range__label">减数</text>
+          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.min2}}" bindinput="onCustomInput" data-type="subtraction" data-field="min2" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.max2}}" bindinput="onCustomInput" data-type="subtraction" data-field="max2" placeholder="最大值"/>
+        </view>
+      </view>
+
+      <view class="form-row">
+        <text class="form-label">退位策略</text>
+        <view class="seg-ctrl">
+          <view class="seg-ctrl__item {{settings.subtraction.borrowPolicy === 'any' ? 'seg-ctrl__item--active' : ''}}" bindtap="onBorrowPolicy" data-policy="any">不限</view>
+          <view class="seg-ctrl__item {{settings.subtraction.borrowPolicy === 'must' ? 'seg-ctrl__item--active' : ''}}" bindtap="onBorrowPolicy" data-policy="must">必须退位</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 乘法卡片 -->
+  <view class="card">
+    <view class="card__header" bindtap="onToggleCard" data-type="multiplication">
+      <view class="card__title-row">
+        <text class="card__title">乘法</text>
+        <text class="card__level-tag" wx:if="{{!settings.multiplication.enabled}}">已关闭</text>
+        <text class="card__level-tag card__level-tag--on" wx:else>L{{settings.multiplication.level}}</text>
+      </view>
+      <switch
+        checked="{{settings.multiplication.enabled}}"
+        bindchange="onToggleEnabled"
+        data-type="multiplication"
+        catchtap="stopProp"
+        color="#4A90E2"
+      />
+    </view>
+
+    <view class="card__body" hidden="{{expandedCard !== 'multiplication'}}">
+      <view class="form-row" wx:if="{{!settings.multiplication.useCustom}}">
+        <text class="form-label">难度</text>
+        <picker
+          mode="selector"
+          range="{{['L1','L2','L3','L4','L5']}}"
+          value="{{settings.multiplication.level - 1}}"
+          bindchange="onLevelChange"
+          data-type="multiplication"
+        >
+          <view class="picker-val">L{{settings.multiplication.level}}</view>
+        </picker>
+      </view>
+
+      <view class="form-row">
+        <text class="form-label">自定义范围</text>
+        <switch
+          checked="{{settings.multiplication.useCustom}}"
+          bindchange="onToggleCustom"
+          data-type="multiplication"
+          color="#4A90E2"
+        />
+      </view>
+
+      <view wx:if="{{settings.multiplication.useCustom}}" class="custom-range">
+        <view class="custom-range__row">
+          <text class="custom-range__label">因数1</text>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.min1}}" bindinput="onCustomInput" data-type="multiplication" data-field="min1" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.max1}}" bindinput="onCustomInput" data-type="multiplication" data-field="max1" placeholder="最大值"/>
+        </view>
+        <view class="custom-range__row">
+          <text class="custom-range__label">因数2</text>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.min2}}" bindinput="onCustomInput" data-type="multiplication" data-field="min2" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.max2}}" bindinput="onCustomInput" data-type="multiplication" data-field="max2" placeholder="最大值"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 除法卡片 -->
+  <view class="card">
+    <view class="card__header" bindtap="onToggleCard" data-type="division">
+      <view class="card__title-row">
+        <text class="card__title">除法</text>
+        <text class="card__level-tag" wx:if="{{!settings.division.enabled}}">已关闭</text>
+        <text class="card__level-tag card__level-tag--on" wx:else>L{{settings.division.level}}</text>
+      </view>
+      <switch
+        checked="{{settings.division.enabled}}"
+        bindchange="onToggleEnabled"
+        data-type="division"
+        catchtap="stopProp"
+        color="#4A90E2"
+      />
+    </view>
+
+    <view class="card__body" hidden="{{expandedCard !== 'division'}}">
+      <view class="form-row" wx:if="{{!settings.division.useCustom}}">
+        <text class="form-label">难度</text>
+        <picker
+          mode="selector"
+          range="{{['L1','L2','L3','L4','L5']}}"
+          value="{{settings.division.level - 1}}"
+          bindchange="onLevelChange"
+          data-type="division"
+        >
+          <view class="picker-val">L{{settings.division.level}}</view>
+        </picker>
+      </view>
+
+      <view class="form-row">
+        <text class="form-label">自定义范围</text>
+        <switch
+          checked="{{settings.division.useCustom}}"
+          bindchange="onToggleCustom"
+          data-type="division"
+          color="#4A90E2"
+        />
+      </view>
+
+      <view wx:if="{{settings.division.useCustom}}" class="custom-range">
+        <view class="custom-range__row">
+          <text class="custom-range__label">商范围</text>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.minQ}}" bindinput="onCustomInput" data-type="division" data-field="minQ" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.maxQ}}" bindinput="onCustomInput" data-type="division" data-field="maxQ" placeholder="最大值"/>
+        </view>
+        <view class="custom-range__row">
+          <text class="custom-range__label">除数范围</text>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.minD}}" bindinput="onCustomInput" data-type="division" data-field="minD" placeholder="最小值"/>
+          <text class="custom-range__sep">~</text>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.maxD}}" bindinput="onCustomInput" data-type="division" data-field="maxD" placeholder="最大值"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-btn" bindtap="onSave">保存设置</view>
+
+</view>

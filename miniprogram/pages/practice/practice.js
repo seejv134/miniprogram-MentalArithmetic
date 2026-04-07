@@ -1,0 +1,120 @@
+const {
+  generateAddition,
+  generateSubtraction,
+  generateMultiplication,
+  generateDivision,
+  makeOptions
+} = require('../../utils/generator');
+const { pickRandomWithType } = require('../../utils/candidates');
+
+const GENERATORS = {
+  addition: generateAddition,
+  subtraction: generateSubtraction,
+  multiplication: generateMultiplication,
+  division: generateDivision
+};
+
+Page({
+  data: {
+    // 当前题目
+    op1: 0,
+    op2: 0,
+    operator: '+',
+    // 四个选项
+    options: [],
+    // 用户选择的答案索引，-1 表示未选
+    selectedIndex: -1,
+    // 正确答案在 options 中的索引
+    correctIndex: -1,
+    // 答题统计
+    correctCount: 0,
+    totalCount: 0,
+    // 是否正在等待下一题（防止快速重复点击）
+    waiting: false,
+    // 是否有可用题目
+    hasQuestion: true
+  },
+
+  // 正确答案（不放 data，不参与渲染）
+  _correctAnswer: 0,
+  _feedbackTimer: null,
+
+  onLoad() {
+    this._nextQuestion();
+  },
+
+  onShow() {
+    // 从设置页返回时重新出题（候选池可能已变更）
+    this._nextQuestion();
+  },
+
+  _nextQuestion() {
+    const app = getApp();
+    const candidates = app.globalData.candidates;
+    const settings = app.globalData.settings;
+
+    const picked = pickRandomWithType(candidates);
+    if (!picked) {
+      this.setData({ hasQuestion: false });
+      return;
+    }
+
+    const { pair, type } = picked;
+    const cfg = settings[type];
+    const generate = GENERATORS[type];
+
+    // 用候选对生成题目（利用候选对确定 op1/op2，然后调用 generator 算结果）
+    let question;
+    if (type === 'addition') {
+      question = { op1: pair.op1, op2: pair.op2, result: pair.op1 + pair.op2, operator: '+' };
+    } else if (type === 'subtraction') {
+      question = { op1: pair.op1, op2: pair.op2, result: pair.op1 - pair.op2, operator: '-' };
+    } else if (type === 'multiplication') {
+      question = { op1: pair.op1, op2: pair.op2, result: pair.op1 * pair.op2, operator: '×' };
+    } else {
+      // division: op1 = dividend, op2 = divisor, result = quotient
+      question = { op1: pair.op1, op2: pair.op2, result: pair.op1 / pair.op2, operator: '÷' };
+    }
+
+    this._correctAnswer = question.result;
+    const options = makeOptions(question.result);
+    const correctIndex = options.indexOf(question.result);
+
+    this.setData({
+      op1: question.op1,
+      op2: question.op2,
+      operator: question.operator,
+      options,
+      correctIndex,
+      selectedIndex: -1,
+      waiting: false,
+      hasQuestion: true
+    });
+  },
+
+  onOptionTap(e) {
+    if (this.data.waiting) return;
+
+    const index = e.currentTarget.dataset.index;
+    const isCorrect = index === this.data.correctIndex;
+
+    this.setData({
+      selectedIndex: index,
+      waiting: true,
+      correctCount: isCorrect ? this.data.correctCount + 1 : this.data.correctCount,
+      totalCount: this.data.totalCount + 1
+    });
+
+    this._feedbackTimer = setTimeout(() => {
+      this._nextQuestion();
+    }, 200);
+  },
+
+  onGoSettings() {
+    wx.navigateTo({ url: '/pages/settings/settings' });
+  },
+
+  onUnload() {
+    if (this._feedbackTimer) clearTimeout(this._feedbackTimer);
+  }
+});

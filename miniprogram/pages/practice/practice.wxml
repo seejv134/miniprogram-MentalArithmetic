@@ -1,0 +1,38 @@
+<view class="practice">
+  <!-- 顶部栏 -->
+  <view class="practice__header">
+    <view class="practice__score">{{correctCount}} / {{totalCount}}</view>
+    <view class="practice__settings-btn" bindtap="onGoSettings">设置</view>
+  </view>
+
+  <!-- 无题目提示 -->
+  <view wx:if="{{!hasQuestion}}" class="practice__empty">
+    <text class="practice__empty-text">暂无可用题目</text>
+    <text class="practice__empty-hint">请前往设置页开启至少一种运算</text>
+    <view class="practice__go-settings" bindtap="onGoSettings">去设置</view>
+  </view>
+
+  <!-- 题目区域 -->
+  <view wx:else class="practice__body">
+    <view class="practice__question">
+      <text class="practice__num">{{op1}}</text>
+      <text class="practice__operator">{{operator}}</text>
+      <text class="practice__num">{{op2}}</text>
+      <text class="practice__eq">=</text>
+      <text class="practice__blank">?</text>
+    </view>
+
+    <!-- 四个选项 -->
+    <view class="practice__options">
+      <view
+        wx:for="{{options}}"
+        wx:key="*this"
+        class="practice__option {{selectedIndex !== -1 ? (index === correctIndex ? 'practice__option--correct' : (index === selectedIndex ? 'practice__option--wrong' : 'practice__option--dim')) : ''}}"
+        bindtap="onOptionTap"
+        data-index="{{index}}"
+      >
+        <text class="practice__option-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+</view>
