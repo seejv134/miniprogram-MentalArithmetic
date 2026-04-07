@@ -2,8 +2,15 @@
 
   <!-- 加法 -->
   <view class="card">
-    <view class="card__header" bindtap="onToggleCard" data-type="addition">
-      <view class="card__header-main">
+    <view class="card__header">
+      <view
+        class="card__header-main"
+        bindtap="onToggleCard"
+        data-type="addition"
+        hover-class="card__header-main--hover"
+        hover-start-time="50"
+        hover-stay-time="100"
+      >
         <view class="card__title-row">
           <text class="card__title">加法</text>
           <text class="card__level-tag" wx:if="{{!settings.addition.enabled}}">已关闭</text>
@@ -24,9 +31,9 @@
       <view class="custom-range {{errorField === 'addition_range' ? 'has-error' : ''}}">
         <view class="custom-range__row">
           <text class="custom-range__label">加数范围</text>
-          <input class="custom-range__input" type="number" value="{{settings.addition.custom.min}}" bindinput="onCustomInput" data-type="addition" data-field="min" placeholder="最小值"/>
+          <input class="custom-range__input" type="number" value="{{settings.addition.custom.min}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="addition" data-field="min" placeholder="最小值"/>
           <text class="custom-range__sep">~</text>
-          <input class="custom-range__input" type="number" value="{{settings.addition.custom.max}}" bindinput="onCustomInput" data-type="addition" data-field="max" placeholder="最大值"/>
+          <input class="custom-range__input" type="number" value="{{settings.addition.custom.max}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="addition" data-field="max" placeholder="最大值"/>
         </view>
         <view class="error-tip" wx:if="{{errorField === 'addition_range'}}">范围的最小值不能大于最大值</view>
       </view>
@@ -34,8 +41,8 @@
       <view class="form-row {{errorField === 'addition_carryPolicy' ? 'has-error' : ''}}">
         <text class="form-label">进位策略</text>
         <view class="seg-ctrl">
-          <view class="seg-ctrl__item {{settings.addition.carryPolicy === 'any' ? 'seg-ctrl__item--active' : ''}}" bindtap="onCarryPolicy" data-policy="any">不限</view>
-          <view class="seg-ctrl__item {{settings.addition.carryPolicy === 'must' ? 'seg-ctrl__item--active' : ''}}" bindtap="onCarryPolicy" data-policy="must">必须进位</view>
+          <view class="seg-ctrl__item {{settings.addition.carryPolicy === 'any' ? 'seg-ctrl__item--active' : ''}}" hover-class="seg-ctrl__item--hover" hover-start-time="50" hover-stay-time="100" bindtap="onCarryPolicy" data-policy="any">不限</view>
+          <view class="seg-ctrl__item {{settings.addition.carryPolicy === 'must' ? 'seg-ctrl__item--active' : ''}}" hover-class="seg-ctrl__item--hover" hover-start-time="50" hover-stay-time="100" bindtap="onCarryPolicy" data-policy="must">必须进位</view>
         </view>
       </view>
       <view class="error-tip" wx:if="{{errorField === 'addition_carryPolicy'}}">当前范围无法产生进位，请修改范围或更改进位策略</view>
@@ -44,8 +51,15 @@
 
   <!-- 减法 -->
   <view class="card">
-    <view class="card__header" bindtap="onToggleCard" data-type="subtraction">
-      <view class="card__header-main">
+    <view class="card__header">
+      <view
+        class="card__header-main"
+        bindtap="onToggleCard"
+        data-type="subtraction"
+        hover-class="card__header-main--hover"
+        hover-start-time="50"
+        hover-stay-time="100"
+      >
         <view class="card__title-row">
           <text class="card__title">减法</text>
           <text class="card__level-tag" wx:if="{{!settings.subtraction.enabled}}">已关闭</text>
@@ -66,9 +80,9 @@
       <view class="custom-range {{errorField === 'subtraction_range' ? 'has-error' : ''}}">
         <view class="custom-range__row">
           <text class="custom-range__label">减数与差范围</text>
-          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.min}}" bindinput="onCustomInput" data-type="subtraction" data-field="min" placeholder="最小值"/>
+          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.min}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="subtraction" data-field="min" placeholder="最小值"/>
           <text class="custom-range__sep">~</text>
-          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.max}}" bindinput="onCustomInput" data-type="subtraction" data-field="max" placeholder="最大值"/>
+          <input class="custom-range__input" type="number" value="{{settings.subtraction.custom.max}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="subtraction" data-field="max" placeholder="最大值"/>
         </view>
         <view class="error-tip" wx:if="{{errorField === 'subtraction_range'}}">范围的最小值不能大于最大值</view>
       </view>
@@ -76,8 +90,8 @@
       <view class="form-row {{errorField === 'subtraction_borrowPolicy' ? 'has-error' : ''}}">
         <text class="form-label">退位策略</text>
         <view class="seg-ctrl">
-          <view class="seg-ctrl__item {{settings.subtraction.borrowPolicy === 'any' ? 'seg-ctrl__item--active' : ''}}" bindtap="onBorrowPolicy" data-policy="any">不限</view>
-          <view class="seg-ctrl__item {{settings.subtraction.borrowPolicy === 'must' ? 'seg-ctrl__item--active' : ''}}" bindtap="onBorrowPolicy" data-policy="must">必须退位</view>
+          <view class="seg-ctrl__item {{settings.subtraction.borrowPolicy === 'any' ? 'seg-ctrl__item--active' : ''}}" hover-class="seg-ctrl__item--hover" hover-start-time="50" hover-stay-time="100" bindtap="onBorrowPolicy" data-policy="any">不限</view>
+          <view class="seg-ctrl__item {{settings.subtraction.borrowPolicy === 'must' ? 'seg-ctrl__item--active' : ''}}" hover-class="seg-ctrl__item--hover" hover-start-time="50" hover-stay-time="100" bindtap="onBorrowPolicy" data-policy="must">必须退位</view>
         </view>
       </view>
       <view class="error-tip" wx:if="{{errorField === 'subtraction_borrowPolicy'}}">当前范围无法产生退位，请修改范围或更改退位策略</view>
@@ -86,8 +100,15 @@
 
   <!-- 乘法 -->
   <view class="card">
-    <view class="card__header" bindtap="onToggleCard" data-type="multiplication">
-      <view class="card__header-main">
+    <view class="card__header">
+      <view
+        class="card__header-main"
+        bindtap="onToggleCard"
+        data-type="multiplication"
+        hover-class="card__header-main--hover"
+        hover-start-time="50"
+        hover-stay-time="100"
+      >
         <view class="card__title-row">
           <text class="card__title">乘法</text>
           <text class="card__level-tag" wx:if="{{!settings.multiplication.enabled}}">已关闭</text>
@@ -108,15 +129,15 @@
       <view class="custom-range {{errorField === 'multiplication_range' ? 'has-error' : ''}}">
         <view class="custom-range__row">
           <text class="custom-range__label">乘数1范围</text>
-          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.min1}}" bindinput="onCustomInput" data-type="multiplication" data-field="min1" placeholder="最小值"/>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.min1}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="multiplication" data-field="min1" placeholder="最小值"/>
           <text class="custom-range__sep">~</text>
-          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.max1}}" bindinput="onCustomInput" data-type="multiplication" data-field="max1" placeholder="最大值"/>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.max1}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="multiplication" data-field="max1" placeholder="最大值"/>
         </view>
         <view class="custom-range__row">
           <text class="custom-range__label">乘数2范围</text>
-          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.min2}}" bindinput="onCustomInput" data-type="multiplication" data-field="min2" placeholder="最小值"/>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.min2}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="multiplication" data-field="min2" placeholder="最小值"/>
           <text class="custom-range__sep">~</text>
-          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.max2}}" bindinput="onCustomInput" data-type="multiplication" data-field="max2" placeholder="最大值"/>
+          <input class="custom-range__input" type="number" value="{{settings.multiplication.custom.max2}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="multiplication" data-field="max2" placeholder="最大值"/>
         </view>
         <view class="error-tip" wx:if="{{errorField === 'multiplication_range'}}">乘数范围的最小值不能大于最大值</view>
       </view>
@@ -125,8 +146,15 @@
 
   <!-- 除法 -->
   <view class="card">
-    <view class="card__header" bindtap="onToggleCard" data-type="division">
-      <view class="card__header-main">
+    <view class="card__header">
+      <view
+        class="card__header-main"
+        bindtap="onToggleCard"
+        data-type="division"
+        hover-class="card__header-main--hover"
+        hover-start-time="50"
+        hover-stay-time="100"
+      >
         <view class="card__title-row">
           <text class="card__title">除法</text>
           <text class="card__level-tag" wx:if="{{!settings.division.enabled}}">已关闭</text>
@@ -147,21 +175,21 @@
       <view class="custom-range {{errorField === 'division_range' ? 'has-error' : ''}}">
         <view class="custom-range__row">
           <text class="custom-range__label">除数范围</text>
-          <input class="custom-range__input" type="number" value="{{settings.division.custom.minD}}" bindinput="onCustomInput" data-type="division" data-field="minD" placeholder="最小值"/>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.minD}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="division" data-field="minD" placeholder="最小值"/>
           <text class="custom-range__sep">~</text>
-          <input class="custom-range__input" type="number" value="{{settings.division.custom.maxD}}" bindinput="onCustomInput" data-type="division" data-field="maxD" placeholder="最大值"/>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.maxD}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="division" data-field="maxD" placeholder="最大值"/>
         </view>
         <view class="custom-range__row">
           <text class="custom-range__label">商范围</text>
-          <input class="custom-range__input" type="number" value="{{settings.division.custom.minQ}}" bindinput="onCustomInput" data-type="division" data-field="minQ" placeholder="最小值"/>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.minQ}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="division" data-field="minQ" placeholder="最小值"/>
           <text class="custom-range__sep">~</text>
-          <input class="custom-range__input" type="number" value="{{settings.division.custom.maxQ}}" bindinput="onCustomInput" data-type="division" data-field="maxQ" placeholder="最大值"/>
+          <input class="custom-range__input" type="number" value="{{settings.division.custom.maxQ}}" bindinput="onCustomInput" bindblur="onCustomBlur" data-type="division" data-field="maxQ" placeholder="最大值"/>
         </view>
         <view class="error-tip" wx:if="{{errorField === 'division_range'}}">商/除数范围的最小值不能大于最大值</view>
       </view>
     </view>
   </view>
 
-  <view class="save-btn" bindtap="onSave">保存设置</view>
+  <view class="save-btn" hover-class="save-btn--hover" hover-start-time="50" hover-stay-time="100" bindtap="onSave">保存设置</view>
 
 </view>

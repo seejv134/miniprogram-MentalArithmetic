@@ -21,6 +21,13 @@ Page({
     this._loadSettings();
   },
 
+  onUnload() {
+    if (this._previewTimer) {
+      clearTimeout(this._previewTimer);
+      this._previewTimer = null;
+    }
+  },
+
   stopProp() {},
 
   _loadSettings() {
@@ -39,7 +46,7 @@ Page({
   onToggleEnabled(e) {
     const type = e.currentTarget.dataset.type;
     const key = `settings.${type}.enabled`;
-    this.setData({ [key]: !this.data.settings[type].enabled });
+    this.setData({ [key]: e.detail.value });
   },
 
   onToggleCard(e) {
@@ -73,7 +80,22 @@ Page({
     }
 
     const key = `settings.${type}.custom.${field}`;
-    this.setData({ [key]: val }, () => this._updatePreviews());
+    this.setData({ [key]: val });
+    if (this._previewTimer) {
+      clearTimeout(this._previewTimer);
+    }
+    this._previewTimer = setTimeout(() => {
+      this._previewTimer = null;
+      this._updatePreviews();
+    }, 200);
+  },
+
+  onCustomBlur() {
+    if (this._previewTimer) {
+      clearTimeout(this._previewTimer);
+      this._previewTimer = null;
+    }
+    this._updatePreviews();
   },
 
   _validateCustomRange(settings) {

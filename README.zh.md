@@ -2,7 +2,7 @@
 
 # miniprogram-MentalArithmetic
 
-微信小程序，用于锻炼口算能力。
+微信小程序「日常口算」，用于日常口算练习。
 
 ## WeUI（`weui/`）
 

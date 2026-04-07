@@ -2,7 +2,7 @@
 
 # miniprogram-MentalArithmetic
 
-WeChat mini program for practicing mental arithmetic.
+WeChat mini program **Daily Mental Arithmetic** (日常口算) for everyday practice.
 
 ## WeUI (`weui/`)
 
