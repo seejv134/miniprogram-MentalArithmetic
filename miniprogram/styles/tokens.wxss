@@ -1,0 +1,99 @@
+/* =============================================
+ * Design Tokens（精简版）
+ * - 颜色/间距/字号/圆角统一管理
+ * - 后续改主题只改这里
+ * ============================================= */
+
+/* 动画：流体呼吸背景（全局复用） */
+@keyframes breathing {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+page {
+  /* ── 颜色：文字层级 ───────────────────── */
+  --color-text-title: #2D3748;
+  --color-text-body: #4A5568;
+  --color-text-secondary: #718096;
+  --color-text-disabled: #A0AEC0;
+
+  /* ── 颜色：品牌/语义 ─────────────────── */
+  --color-primary: #4A90E2;
+  --color-primary-underline: rgba(74, 144, 226, 0.3);
+  --color-primary-shadow: rgba(74, 144, 226, 0.1);
+
+  --color-success: #2F855A;
+  --color-error: #C53030;
+
+  --color-success-bg: rgba(198, 246, 213, 0.6);
+  --color-success-border: rgba(72, 187, 120, 0.4);
+  --color-error-bg: rgba(254, 215, 215, 0.6);
+  --color-error-border: rgba(245, 101, 101, 0.4);
+  --color-error-soft-bg: rgba(254, 215, 215, 0.4);
+  --color-error-soft-border: rgba(245, 101, 101, 0.5);
+  --color-chip-bg: rgba(226, 232, 240, 0.6);
+
+  /* ── 背景 ───────────────────────────── */
+  --color-bg-page: #F5F7FA;
+  --bg-gradient-breathing: linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E8F0FE, #F5F7FA);
+
+  /* ── 毛玻璃（精简透明度） ─────────────── */
+  --glass-bg-subtle: rgba(255, 255, 255, 0.3);
+  --glass-bg-default: rgba(255, 255, 255, 0.4);
+  --glass-bg-medium: rgba(255, 255, 255, 0.5);
+  --glass-bg-strong: rgba(255, 255, 255, 0.6);
+  --glass-bg-intense: rgba(255, 255, 255, 0.8);
+
+  --glass-border-hairline: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-border-strong: rgba(255, 255, 255, 0.6);
+  --glass-border-intense: rgba(255, 255, 255, 0.8);
+
+  /* 阴影（精简：默认/强调，active 阴影直接去掉） */
+  --shadow-glass: rgba(113, 128, 150, 0.05);
+  --shadow-glass-strong: rgba(113, 128, 150, 0.1);
+  --shadow-glass-md: rgba(113, 128, 150, 0.08);
+
+  /* 模糊（保留 3 档） */
+  --blur-sm: blur(10px);
+  --blur-md: blur(16px);
+  --blur-lg: blur(20px);
+
+  /* ── 间距（精简：合并 8→12、20→24） ─── */
+  --space-sm: 12rpx;
+  --space-md: 16rpx;
+  --space-lg: 24rpx;
+  --space-xl: 32rpx;
+  --space-2xl: 40rpx;
+  --space-3xl: 48rpx;
+  --space-4xl: 60rpx;
+  --space-5xl: 80rpx;
+  --space-6xl: 120rpx;
+  --space-7xl: 160rpx;
+
+  /* ── 圆角（精简：20→16） ─────────────── */
+  --radius-sm: 16rpx;
+  --radius-md: 24rpx;
+  --radius-lg: 32rpx;
+  --radius-xl: 40rpx;
+  --radius-pill: 60rpx;
+
+  /* ── 字号（精简：26→28、30→32、34→36） ─ */
+  --text-xs: 22rpx;
+  --text-sm: 24rpx;
+  --text-base: 28rpx;
+  --text-md: 32rpx;
+  --text-lg: 36rpx;
+  --text-2xl: 56rpx;
+  --text-3xl: 72rpx;
+
+  /* ── 字体 ───────────────────────────── */
+  --font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  /* ── 动画时长 ───────────────────────── */
+  --duration-fast: 0.3s;
+  --duration-normal: 0.4s;
+  --duration-bg: 15s;
+}
+

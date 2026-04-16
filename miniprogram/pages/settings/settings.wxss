@@ -1,55 +1,48 @@
-/* 动画：流体呼吸背景 (与 practice 保持完全一致) */
-@keyframes breathing {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .settings {
-  padding: 32rpx 32rpx 160rpx;
+  padding: var(--space-xl) var(--space-xl) var(--space-7xl);
   min-height: 100vh;
   box-sizing: border-box;
   /* 晨雾蓝到珍珠白的渐变，营造流体感 */
-  background: linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E8F0FE, #F5F7FA);
+  background: var(--bg-gradient-breathing);
   background-size: 400% 400%;
-  animation: breathing 15s ease infinite;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  animation: breathing var(--duration-bg) ease infinite;
+  font-family: var(--font-family);
 }
 
 /* 毛玻璃卡片 */
 .card {
   /* 核心：毛玻璃效果 (Glassmorphism) */
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 32rpx;
-  margin-bottom: 32rpx;
+  background: var(--glass-bg-default);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-xl);
   overflow: hidden;
-  box-shadow: 0 8rpx 32rpx rgba(113, 128, 150, 0.05);
-  transition: all 0.3s ease;
+  box-shadow: 0 8rpx 32rpx var(--shadow-glass);
+  transition: all var(--duration-fast) ease;
 }
 
 .card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32rpx 40rpx;
-  gap: 24rpx;
+  padding: var(--space-xl) var(--space-2xl);
+  gap: var(--space-lg);
 }
 
 .card__header-main {
   flex: 1;
   min-width: 0;
-  border-radius: 16rpx;
-  padding: 12rpx;
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
   margin: -12rpx;
-  transition: background-color 0.3s ease;
+  transition: background-color var(--duration-fast) ease;
 }
 
 /* 悬浮反馈：柔和的白色高光 */
 .card__header-main--hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--glass-bg-subtle);
 }
 
 .card__switch {
@@ -61,37 +54,37 @@
 .card__title-row {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  gap: var(--space-md);
 }
 
 .card__title {
-  font-size: 36rpx;
+  font-size: var(--text-lg);
   font-weight: 400; /* 降低字重，增加优雅感 */
-  color: #2D3748;
+  color: var(--color-text-title);
 }
 
 .card__level-tag {
-  font-size: 22rpx;
-  padding: 6rpx 20rpx;
-  border-radius: 24rpx;
-  background: rgba(226, 232, 240, 0.6);
-  color: #718096;
+  font-size: var(--text-xs);
+  padding: 6rpx var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-chip-bg);
+  color: var(--color-text-secondary);
   font-weight: 300;
 }
 
 .range-preview--header {
   display: block;
-  margin-top: 12rpx;
-  font-size: 24rpx;
-  color: #718096;
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
   line-height: 1.5;
   font-weight: 300;
   word-break: break-all;
 }
 
 .card__body {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 24rpx 40rpx 32rpx;
+  border-top: 1px solid var(--glass-border);
+  padding: var(--space-lg) var(--space-2xl) var(--space-xl);
 }
 
 /* 表单行 */
@@ -99,8 +92,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--glass-border-hairline);
 }
 
 .form-row:last-child {
@@ -108,55 +101,55 @@
 }
 
 .form-label {
-  font-size: 30rpx;
-  color: #4A5568;
+  font-size: var(--text-md);
+  color: var(--color-text-body);
   font-weight: 300;
 }
 
 /* 分段控制器：毛玻璃风格 */
 .seg-ctrl {
   display: flex;
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 24rpx;
+  background: var(--glass-bg-subtle);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-md);
   overflow: hidden;
   padding: 4rpx;
 }
 
 .seg-ctrl__item {
-  font-size: 26rpx;
-  padding: 12rpx 32rpx;
-  color: #718096;
-  border-radius: 20rpx;
-  transition: all 0.3s ease;
+  font-size: var(--text-base);
+  padding: var(--space-sm) var(--space-xl);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) ease;
 }
 
 .seg-ctrl__item--active {
-  background: #ffffff;
-  color: #4A90E2;
-  box-shadow: 0 4rpx 12rpx rgba(74, 144, 226, 0.1);
+  background: var(--glass-bg-intense);
+  color: var(--color-primary);
+  box-shadow: 0 4rpx 12rpx var(--color-primary-shadow);
   font-weight: 400;
 }
 
 .seg-ctrl__item--hover:not(.seg-ctrl__item--active) {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--glass-bg-medium);
 }
 
 /* 自定义范围输入：柔和的输入框 */
 .custom-range {
-  padding: 16rpx 0;
+  padding: var(--space-md) 0;
 }
 
 .custom-range__row {
   display: flex;
   align-items: center;
-  gap: 16rpx;
-  margin-bottom: 20rpx;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .custom-range__label {
-  font-size: 28rpx;
-  color: #4A5568;
+  font-size: var(--text-base);
+  color: var(--color-text-body);
   width: 140rpx;
   flex-shrink: 0;
   font-weight: 300;
@@ -165,64 +158,64 @@
 .custom-range__input {
   flex: 1;
   height: 72rpx;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 16rpx;
-  padding: 0 24rpx;
-  font-size: 30rpx;
-  color: #2D3748;
+  background: var(--glass-bg-medium);
+  border: 1px solid var(--glass-border-intense);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-lg);
+  font-size: var(--text-md);
+  color: var(--color-text-title);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all var(--duration-fast) ease;
 }
 
 .custom-range__input:focus {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: #4A90E2;
-  box-shadow: 0 0 0 4rpx rgba(74, 144, 226, 0.1);
+  background: var(--glass-bg-intense);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4rpx var(--color-primary-shadow);
 }
 
 .custom-range__sep {
-  font-size: 28rpx;
-  color: #A0AEC0;
+  font-size: var(--text-base);
+  color: var(--color-text-disabled);
 }
 
 /* 错误提示和红框：莫兰迪红 */
 .has-error .custom-range__input,
 .has-error .seg-ctrl {
-  border-color: rgba(245, 101, 101, 0.5);
-  background-color: rgba(254, 215, 215, 0.4);
+  border-color: var(--color-error-soft-border);
+  background-color: var(--color-error-soft-bg);
 }
 
 .error-tip {
-  font-size: 24rpx;
-  color: #C53030;
-  margin-top: 12rpx;
-  margin-bottom: 12rpx;
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-sm);
   font-weight: 300;
 }
 
 /* 保存按钮：悬浮毛玻璃胶囊 */
 .save-btn {
   position: fixed;
-  bottom: 60rpx;
-  left: 60rpx;
-  right: 60rpx;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  color: #4A5568;
-  font-size: 34rpx;
+  bottom: var(--space-4xl);
+  left: var(--space-4xl);
+  right: var(--space-4xl);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--glass-border-intense);
+  color: var(--color-text-body);
+  font-size: var(--text-lg);
   font-weight: 400;
   text-align: center;
-  padding: 32rpx 0;
-  border-radius: 60rpx;
-  box-shadow: 0 12rpx 32rpx rgba(113, 128, 150, 0.1);
+  padding: var(--space-xl) 0;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12rpx 32rpx var(--shadow-glass-strong);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .save-btn--hover {
   transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 6rpx 16rpx rgba(113, 128, 150, 0.05);
+  background: var(--glass-bg-intense);
+  box-shadow: 0 6rpx 16rpx var(--shadow-glass);
 }

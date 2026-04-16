@@ -1,8 +1,10 @@
+@import './styles/tokens.wxss';
+
 /* 全局基础样式 */
 page {
-  background-color: #F5F7FA;
-  color: #333333;
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background-color: var(--color-bg-page);
+  color: var(--color-text-body);
+  font-family: var(--font-family);
   box-sizing: border-box;
 }
 

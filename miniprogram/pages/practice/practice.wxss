@@ -1,20 +1,13 @@
-/* 动画：流体呼吸背景 */
-@keyframes breathing {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .practice {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   /* 晨雾蓝到珍珠白的渐变，营造流体感 */
-  background: linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E8F0FE, #F5F7FA);
+  background: var(--bg-gradient-breathing);
   background-size: 400% 400%;
-  animation: breathing 15s ease infinite;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  color: #4A5568;
+  animation: breathing var(--duration-bg) ease infinite;
+  font-family: var(--font-family);
+  color: var(--color-text-body);
 }
 
 /* 顶部栏：极简透明 */
@@ -22,33 +15,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32rpx 48rpx;
+  padding: var(--space-xl) var(--space-3xl);
   /* 移除原有的白色背景和阴影，融入环境 */
 }
 
 .practice__score {
-  font-size: 32rpx;
+  font-size: var(--text-md);
   font-weight: 400;
-  color: #718096;
+  color: var(--color-text-secondary);
   letter-spacing: 4rpx;
 }
 
 .practice__settings-btn {
-  font-size: 28rpx;
-  color: #718096;
-  padding: 12rpx 32rpx;
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) var(--space-xl);
   /* 按钮也采用轻微的毛玻璃效果 */
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 40rpx;
-  transition: all 0.3s ease;
+  background: var(--glass-bg-subtle);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--duration-fast) ease;
 }
 
 .practice__settings-btn:active {
   transform: scale(0.95);
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--glass-bg-medium);
 }
 
 /* 主体：极致留白 */
@@ -58,7 +51,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 48rpx 120rpx; /* 底部留出呼吸空间 */
+  padding: 0 var(--space-3xl) var(--space-6xl); /* 底部留出呼吸空间 */
 }
 
 /* 题目：优雅排版 */
@@ -66,43 +59,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 120rpx;
-  gap: 24rpx; /* 增加符号与数字之间的呼吸感 */
+  margin-bottom: var(--space-6xl);
+  gap: var(--space-lg); /* 增加符号与数字之间的呼吸感 */
 }
 
 .practice__num,
 .practice__operator,
 .practice__eq,
 .practice__blank {
-  font-size: 72rpx; /* 适中、克制的字号 */
+  font-size: var(--text-3xl); /* 适中、克制的字号 */
   font-weight: 300; /* 优雅的细体 */
-  color: #2D3748;
+  color: var(--color-text-title);
   line-height: 1;
 }
 
 .practice__operator {
-  color: #718096; /* 符号颜色稍微弱化 */
+  color: var(--color-text-secondary); /* 符号颜色稍微弱化 */
 }
 
 .practice__eq {
-  color: #A0AEC0;
+  color: var(--color-text-disabled);
 }
 
 .practice__blank {
-  color: #4A90E2;
+  color: var(--color-primary);
   font-weight: 400;
   min-width: 60rpx;
   text-align: center;
   /* 用柔和的下划线代替生硬的问号，或者保留问号加下划线 */
-  border-bottom: 2px solid rgba(74, 144, 226, 0.3);
-  padding-bottom: 8rpx;
+  border-bottom: 2px solid var(--color-primary-underline);
+  padding-bottom: var(--space-sm);
 }
 
 /* 选项：毛玻璃键盘 */
 .practice__options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32rpx;
+  gap: var(--space-xl);
   width: 100%;
   max-width: 560rpx;
 }
@@ -113,32 +106,32 @@
   align-items: center;
   justify-content: center;
   /* 核心：毛玻璃效果 (Glassmorphism) */
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 32rpx;
-  box-shadow: 0 8rpx 32rpx rgba(113, 128, 150, 0.05);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: var(--glass-bg-default);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8rpx 32rpx var(--shadow-glass);
+  transition: all var(--duration-normal) cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* 涟漪反馈：点击时像按在水面上一样轻微下沉 */
 .practice__option:active {
   transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4rpx 16rpx rgba(113, 128, 150, 0.02);
+  background: var(--glass-bg-strong);
+  box-shadow: none;
 }
 
 /* 答对状态：柔和的莫兰迪绿 */
 .practice__option--correct {
-  background: rgba(198, 246, 213, 0.6);
-  border-color: rgba(72, 187, 120, 0.4);
+  background: var(--color-success-bg);
+  border-color: var(--color-success-border);
 }
 
 /* 答错状态：柔和的莫兰迪红 */
 .practice__option--wrong {
-  background: rgba(254, 215, 215, 0.6);
-  border-color: rgba(245, 101, 101, 0.4);
+  background: var(--color-error-bg);
+  border-color: var(--color-error-border);
 }
 
 /* 未选中/变暗状态 */
@@ -148,17 +141,17 @@
 }
 
 .practice__option-text {
-  font-size: 56rpx;
+  font-size: var(--text-2xl);
   font-weight: 400; /* 配合整体的轻盈感 */
-  color: #4A5568;
+  color: var(--color-text-body);
 }
 
 .practice__option--correct .practice__option-text {
-  color: #2F855A;
+  color: var(--color-success);
 }
 
 .practice__option--wrong .practice__option-text {
-  color: #C53030;
+  color: var(--color-error);
 }
 
 /* 无题目状态：同样保持极简和毛玻璃质感 */
@@ -168,38 +161,38 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24rpx;
-  padding: 60rpx;
+  gap: var(--space-lg);
+  padding: var(--space-4xl);
 }
 
 .practice__empty-text {
-  font-size: 36rpx;
+  font-size: var(--text-lg);
   font-weight: 300;
-  color: #4A5568;
+  color: var(--color-text-body);
 }
 
 .practice__empty-hint {
-  font-size: 28rpx;
+  font-size: var(--text-base);
   font-weight: 300;
-  color: #A0AEC0;
+  color: var(--color-text-disabled);
 }
 
 .practice__go-settings {
-  margin-top: 40rpx;
-  padding: 24rpx 80rpx;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  color: #4A5568;
-  border-radius: 60rpx;
-  font-size: 32rpx;
+  margin-top: var(--space-2xl);
+  padding: var(--space-lg) var(--space-5xl);
+  background: var(--glass-bg-medium);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  border: 1px solid var(--glass-border-intense);
+  color: var(--color-text-body);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-md);
   font-weight: 400;
-  box-shadow: 0 8rpx 24rpx rgba(113, 128, 150, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: 0 8rpx 24rpx var(--shadow-glass-md);
+  transition: all var(--duration-fast) ease;
 }
 
 .practice__go-settings:active {
   transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-bg-strong);
 }
