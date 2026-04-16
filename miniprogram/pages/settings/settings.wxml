@@ -1,4 +1,40 @@
-<view class="settings" wx:if="{{settings}}">
+<view class="settings theme-{{theme}}" wx:if="{{settings}}">
+
+  <!-- 主题切换 -->
+  <view class="card theme-picker-card">
+    <view class="card__body card__body--no-header">
+      <view class="theme-picker__head">
+        <text class="theme-picker__title">外观</text>
+        <text class="theme-picker__hint">选择你喜欢的氛围</text>
+      </view>
+      <view class="theme-grid">
+        <view
+          wx:for="{{themeOptions}}"
+          wx:key="id"
+          class="theme-chip theme-chip--{{item.id}} {{theme === item.id ? 'theme-chip--active' : ''}}"
+          hover-class="theme-chip--hover"
+          hover-start-time="20"
+          hover-stay-time="120"
+          bindtap="onThemeTap"
+          data-theme="{{item.id}}"
+        >
+          <view class="theme-chip__aurora"></view>
+          <view class="theme-chip__glass">
+            <view class="theme-chip__swatch">
+              <view class="theme-chip__dot theme-chip__dot--1"></view>
+              <view class="theme-chip__dot theme-chip__dot--2"></view>
+              <view class="theme-chip__dot theme-chip__dot--3"></view>
+            </view>
+          </view>
+          <view class="theme-chip__label">
+            <text class="theme-chip__name">{{item.name}}</text>
+            <text class="theme-chip__desc">{{item.desc}}</text>
+          </view>
+          <view class="theme-chip__check" wx:if="{{theme === item.id}}"></view>
+        </view>
+      </view>
+    </view>
+  </view>
 
   <view class="card">
     <view class="card__body card__body--no-header">
@@ -9,7 +45,7 @@
           checked="{{settings.feedback.soundEnabled}}"
           bindchange="onToggleFeedbackSound"
           catchtap="stopProp"
-          color="#4A90E2"
+          color="{{switchColor}}"
         />
       </view>
       <view class="form-row">
@@ -19,7 +55,7 @@
           checked="{{settings.feedback.vibrationEnabled}}"
           bindchange="onToggleFeedbackVibration"
           catchtap="stopProp"
-          color="#4A90E2"
+          color="{{switchColor}}"
         />
       </view>
     </view>
@@ -48,7 +84,7 @@
         bindchange="onToggleEnabled"
         data-type="addition"
         catchtap="stopProp"
-        color="#4A90E2"
+        color="{{switchColor}}"
       />
     </view>
 
@@ -97,7 +133,7 @@
         bindchange="onToggleEnabled"
         data-type="subtraction"
         catchtap="stopProp"
-        color="#4A90E2"
+        color="{{switchColor}}"
       />
     </view>
 
@@ -146,7 +182,7 @@
         bindchange="onToggleEnabled"
         data-type="multiplication"
         catchtap="stopProp"
-        color="#4A90E2"
+        color="{{switchColor}}"
       />
     </view>
 
@@ -192,7 +228,7 @@
         bindchange="onToggleEnabled"
         data-type="division"
         catchtap="stopProp"
-        color="#4A90E2"
+        color="{{switchColor}}"
       />
     </view>
 

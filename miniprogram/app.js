@@ -3,6 +3,17 @@ const { clampOperandRange } = require('./utils/generator');
 /** 乘除自定义上限（与 generator / 设置页一致） */
 const MAX_MUL_DIV_OPERAND = 33;
 
+/** 支持的主题列表（需与 tokens.wxss 中 .theme-xxx 对应） */
+const THEMES = ['mist', 'amber', 'cyber'];
+const DEFAULT_THEME = 'mist';
+
+/** 各主题下原生 switch 的激活色（无法走 CSS 变量） */
+const THEME_SWITCH_COLOR = {
+  mist: '#4A90E2',
+  amber: '#E8B86D',
+  cyber: '#00E5FF'
+};
+
 const DEFAULT_SETTINGS = {
   /** 答对反馈：与练习页音效/震动一致 */
   feedback: {
@@ -108,7 +119,8 @@ function normalizeSettings(raw) {
 
 App({
   globalData: {
-    settings: null
+    settings: null,
+    theme: DEFAULT_THEME
   },
 
   onLaunch() {
@@ -116,11 +128,30 @@ App({
     const settings = normalizeSettings(raw);
     wx.setStorageSync('settings', settings);
     this.globalData.settings = settings;
+
+    const savedTheme = wx.getStorageSync('theme');
+    const theme = THEMES.includes(savedTheme) ? savedTheme : DEFAULT_THEME;
+    this.globalData.theme = theme;
   },
 
   updateSettings(newSettings) {
     const settings = normalizeSettings(newSettings);
     this.globalData.settings = settings;
     wx.setStorageSync('settings', settings);
+  },
+
+  /**
+   * 切换主题：写入全局与本地存储；页面需自行拉取并 setData 刷新。
+   * @param {string} theme
+   */
+  updateTheme(theme) {
+    if (!THEMES.includes(theme)) return;
+    this.globalData.theme = theme;
+    wx.setStorageSync('theme', theme);
+  },
+
+  /** 获取当前主题下 switch 组件需要的激活色（原生控件不支持 CSS 变量） */
+  getSwitchColor() {
+    return THEME_SWITCH_COLOR[this.globalData.theme] || THEME_SWITCH_COLOR[DEFAULT_THEME];
   }
 });

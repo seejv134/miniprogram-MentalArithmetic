@@ -19,7 +19,9 @@ Page({
     // 是否正在等待下一题（防止快速重复点击）
     waiting: false,
     // 是否有可用题目
-    hasQuestion: true
+    hasQuestion: true,
+    // 当前主题 id（与 tokens.wxss 的 .theme-xxx 对应）
+    theme: 'mist'
   },
 
   // 正确答案（不放 data，不参与渲染）
@@ -32,12 +34,20 @@ Page({
     const sound = wx.createInnerAudioContext();
     sound.src = '/assets/audio/lucadialessandro-tap-notification-180637.mp3';
     this._correctSound = sound;
+    this._syncTheme();
     this._nextQuestion();
   },
 
   onShow() {
-    // 从设置页返回时重新出题（设置可能已变更）
+    this._syncTheme();
     this._nextQuestion();
+  },
+
+  _syncTheme() {
+    const theme = getApp().globalData.theme || 'mist';
+    if (theme !== this.data.theme) {
+      this.setData({ theme });
+    }
   },
 
   _nextQuestion() {

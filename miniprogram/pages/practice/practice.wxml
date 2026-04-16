@@ -1,4 +1,4 @@
-<view class="practice">
+<view class="practice theme-{{theme}}">
   <!-- 顶部栏 -->
   <view class="practice__header">
     <view class="practice__score">{{correctCount}} / {{totalCount}}</view>

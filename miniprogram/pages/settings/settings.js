@@ -6,6 +6,13 @@ const {
 } = require('../../utils/generator');
 const { buildPreviewPatch } = require('../../utils/rangePreview');
 
+/** 主题展示配置：id 与 tokens.wxss 中的 .theme-xxx 一一对应 */
+const THEME_OPTIONS = [
+  { id: 'mist', name: '晨雾', desc: '清透极简' },
+  { id: 'amber', name: '暮色琥珀', desc: '温醇雅致' },
+  { id: 'cyber', name: '霓虹赛博', desc: '电光幻彩' }
+];
+
 Page({
   data: {
     settings: null,
@@ -14,11 +21,29 @@ Page({
     previewAddition: '',
     previewSubtraction: '',
     previewMultiplication: '',
-    previewDivision: ''
+    previewDivision: '',
+    theme: 'mist',
+    themeOptions: THEME_OPTIONS,
+    switchColor: '#4A90E2'
   },
 
   onLoad() {
     this._loadSettings();
+    this._syncTheme();
+  },
+
+  _syncTheme() {
+    const app = getApp();
+    const theme = app.globalData.theme || 'mist';
+    this.setData({ theme, switchColor: app.getSwitchColor() });
+  },
+
+  onThemeTap(e) {
+    const theme = e.currentTarget.dataset.theme;
+    if (!theme || theme === this.data.theme) return;
+    const app = getApp();
+    app.updateTheme(theme);
+    this.setData({ theme, switchColor: app.getSwitchColor() });
   },
 
   onUnload() {

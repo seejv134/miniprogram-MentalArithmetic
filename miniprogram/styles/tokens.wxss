@@ -1,7 +1,9 @@
 /* =============================================
- * Design Tokens（精简版）
+ * Design Tokens（多主题）
  * - 颜色/间距/字号/圆角统一管理
- * - 后续改主题只改这里
+ * - 默认主题：晨雾 Mist
+ * - 额外主题：暮色琥珀 Amber、霓虹赛博 Cyber
+ *   通过在页面根 view 上挂 `theme-xxx` 类触发
  * ============================================= */
 
 /* 动画：流体呼吸背景（全局复用） */
@@ -11,14 +13,66 @@
   100% { background-position: 0% 50%; }
 }
 
+/* ─────────────────────────────────────────────
+ * 基础 Tokens：尺寸/字号/时长 —— 三主题共用
+ * ───────────────────────────────────────────── */
 page {
-  /* ── 颜色：文字层级 ───────────────────── */
+  /* ── 间距 ───────────────────────────── */
+  --space-sm: 12rpx;
+  --space-md: 16rpx;
+  --space-lg: 24rpx;
+  --space-xl: 32rpx;
+  --space-2xl: 40rpx;
+  --space-3xl: 48rpx;
+  --space-4xl: 60rpx;
+  --space-5xl: 80rpx;
+  --space-6xl: 120rpx;
+  --space-7xl: 160rpx;
+
+  /* ── 圆角 ───────────────────────────── */
+  --radius-sm: 16rpx;
+  --radius-md: 24rpx;
+  --radius-lg: 32rpx;
+  --radius-xl: 40rpx;
+  --radius-pill: 60rpx;
+
+  /* ── 字号 ───────────────────────────── */
+  --text-xs: 22rpx;
+  --text-sm: 24rpx;
+  --text-base: 28rpx;
+  --text-md: 32rpx;
+  --text-lg: 36rpx;
+  --text-2xl: 56rpx;
+  --text-3xl: 72rpx;
+
+  /* ── 模糊 ───────────────────────────── */
+  --blur-sm: blur(10px);
+  --blur-md: blur(16px);
+  --blur-lg: blur(20px);
+
+  /* ── 动画时长 ───────────────────────── */
+  --duration-fast: 0.3s;
+  --duration-normal: 0.4s;
+  --duration-bg: 15s;
+
+  /* ── 字体 ───────────────────────────── */
+  --font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+
+/* ═════════════════════════════════════════════
+ * 主题 · 晨雾 Mist（默认）
+ *   清透 / 极简 / 毛玻璃呼吸
+ * ═════════════════════════════════════════════ */
+page,
+.theme-mist {
+  /* 文字层级 */
   --color-text-title: #2D3748;
   --color-text-body: #4A5568;
   --color-text-secondary: #718096;
   --color-text-disabled: #A0AEC0;
 
-  /* ── 颜色：品牌/语义 ─────────────────── */
+  /* 品牌 / 语义 */
   --color-primary: #4A90E2;
   --color-primary-underline: rgba(74, 144, 226, 0.3);
   --color-primary-shadow: rgba(74, 144, 226, 0.1);
@@ -34,11 +88,11 @@ page {
   --color-error-soft-border: rgba(245, 101, 101, 0.5);
   --color-chip-bg: rgba(226, 232, 240, 0.6);
 
-  /* ── 背景 ───────────────────────────── */
+  /* 背景 */
   --color-bg-page: #F5F7FA;
   --bg-gradient-breathing: linear-gradient(-45deg, #E0EAFC, #CFDEF3, #E8F0FE, #F5F7FA);
 
-  /* ── 毛玻璃（精简透明度） ─────────────── */
+  /* 毛玻璃：白色系 */
   --glass-bg-subtle: rgba(255, 255, 255, 0.3);
   --glass-bg-default: rgba(255, 255, 255, 0.4);
   --glass-bg-medium: rgba(255, 255, 255, 0.5);
@@ -50,50 +104,114 @@ page {
   --glass-border-strong: rgba(255, 255, 255, 0.6);
   --glass-border-intense: rgba(255, 255, 255, 0.8);
 
-  /* 阴影（精简：默认/强调，active 阴影直接去掉） */
+  /* 阴影：清淡灰蓝 */
   --shadow-glass: rgba(113, 128, 150, 0.05);
   --shadow-glass-strong: rgba(113, 128, 150, 0.1);
   --shadow-glass-md: rgba(113, 128, 150, 0.08);
-
-  /* 模糊（保留 3 档） */
-  --blur-sm: blur(10px);
-  --blur-md: blur(16px);
-  --blur-lg: blur(20px);
-
-  /* ── 间距（精简：合并 8→12、20→24） ─── */
-  --space-sm: 12rpx;
-  --space-md: 16rpx;
-  --space-lg: 24rpx;
-  --space-xl: 32rpx;
-  --space-2xl: 40rpx;
-  --space-3xl: 48rpx;
-  --space-4xl: 60rpx;
-  --space-5xl: 80rpx;
-  --space-6xl: 120rpx;
-  --space-7xl: 160rpx;
-
-  /* ── 圆角（精简：20→16） ─────────────── */
-  --radius-sm: 16rpx;
-  --radius-md: 24rpx;
-  --radius-lg: 32rpx;
-  --radius-xl: 40rpx;
-  --radius-pill: 60rpx;
-
-  /* ── 字号（精简：26→28、30→32、34→36） ─ */
-  --text-xs: 22rpx;
-  --text-sm: 24rpx;
-  --text-base: 28rpx;
-  --text-md: 32rpx;
-  --text-lg: 36rpx;
-  --text-2xl: 56rpx;
-  --text-3xl: 72rpx;
-
-  /* ── 字体 ───────────────────────────── */
-  --font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-
-  /* ── 动画时长 ───────────────────────── */
-  --duration-fast: 0.3s;
-  --duration-normal: 0.4s;
-  --duration-bg: 15s;
 }
 
+
+/* ═════════════════════════════════════════════
+ * 主题 · 暮色琥珀 Amber
+ *   深夜酒红 × 琥珀铜金
+ *   气质：温醇、编辑设计感、雪茄沙发
+ * ═════════════════════════════════════════════ */
+.theme-amber {
+  /* 文字层级（暖米白 / 羊皮纸） */
+  --color-text-title: #F5E6CB;
+  --color-text-body: #E0CFA9;
+  --color-text-secondary: #B69973;
+  --color-text-disabled: #7A6648;
+
+  /* 品牌：暖琥珀金 */
+  --color-primary: #E8B86D;
+  --color-primary-underline: rgba(232, 184, 109, 0.45);
+  --color-primary-shadow: rgba(232, 184, 109, 0.22);
+
+  /* 语义（暗夜里的柔和信号色） */
+  --color-success: #B5D69E;
+  --color-error: #F0A79A;
+
+  --color-success-bg: rgba(110, 150, 95, 0.22);
+  --color-success-border: rgba(181, 214, 158, 0.45);
+  --color-error-bg: rgba(180, 90, 75, 0.28);
+  --color-error-border: rgba(240, 167, 154, 0.5);
+  --color-error-soft-bg: rgba(180, 90, 75, 0.18);
+  --color-error-soft-border: rgba(240, 167, 154, 0.45);
+  --color-chip-bg: rgba(232, 184, 109, 0.18);
+
+  /* 背景：深夜酒红 → 焦糖铜 → 黑咖 */
+  --color-bg-page: #1A1208;
+  --bg-gradient-breathing: linear-gradient(135deg, #2A1710 0%, #1A0F0A 35%, #3A2414 70%, #1F1409 100%);
+
+  /* 毛玻璃：深焦糖铜调 */
+  --glass-bg-subtle: rgba(58, 38, 22, 0.32);
+  --glass-bg-default: rgba(58, 38, 22, 0.48);
+  --glass-bg-medium: rgba(58, 38, 22, 0.62);
+  --glass-bg-strong: rgba(58, 38, 22, 0.74);
+  --glass-bg-intense: rgba(58, 38, 22, 0.88);
+
+  /* 边框：一缕金线 */
+  --glass-border-hairline: rgba(232, 184, 109, 0.18);
+  --glass-border: rgba(232, 184, 109, 0.3);
+  --glass-border-strong: rgba(232, 184, 109, 0.45);
+  --glass-border-intense: rgba(232, 184, 109, 0.65);
+
+  /* 阴影：深夜沉厚 */
+  --shadow-glass: rgba(0, 0, 0, 0.28);
+  --shadow-glass-strong: rgba(0, 0, 0, 0.4);
+  --shadow-glass-md: rgba(0, 0, 0, 0.32);
+}
+
+
+/* ═════════════════════════════════════════════
+ * 主题 · 霓虹赛博 Cyber
+ *   墨黑 × 霓虹青 × 品红
+ *   气质：电光、未来、最大主义
+ * ═════════════════════════════════════════════ */
+.theme-cyber {
+  /* 文字层级（冷白 / 冰蓝灰） */
+  --color-text-title: #EAF4FF;
+  --color-text-body: #C6D3F2;
+  --color-text-secondary: #7E90BF;
+  --color-text-disabled: #4C5A85;
+
+  /* 品牌：霓虹青 */
+  --color-primary: #00E5FF;
+  --color-primary-underline: rgba(0, 229, 255, 0.55);
+  --color-primary-shadow: rgba(0, 229, 255, 0.35);
+
+  /* 语义：电光绿 / 品红 */
+  --color-success: #45F0B0;
+  --color-error: #FF4D93;
+
+  --color-success-bg: rgba(69, 240, 176, 0.16);
+  --color-success-border: rgba(69, 240, 176, 0.55);
+  --color-error-bg: rgba(255, 77, 147, 0.18);
+  --color-error-border: rgba(255, 77, 147, 0.6);
+  --color-error-soft-bg: rgba(255, 77, 147, 0.12);
+  --color-error-soft-border: rgba(255, 77, 147, 0.5);
+  --color-chip-bg: rgba(0, 229, 255, 0.15);
+
+  /* 背景：深紫墨 → 电蓝 → 品红暗涌 */
+  --color-bg-page: #05060F;
+  --bg-gradient-breathing: linear-gradient(-45deg, #0A0B2E 0%, #1A0636 30%, #06112E 60%, #280A32 100%);
+
+  /* 毛玻璃：深墨蓝烟雾 */
+  --glass-bg-subtle: rgba(14, 22, 48, 0.4);
+  --glass-bg-default: rgba(14, 22, 48, 0.58);
+  --glass-bg-medium: rgba(14, 22, 48, 0.72);
+  --glass-bg-strong: rgba(14, 22, 48, 0.85);
+  --glass-bg-intense: rgba(14, 22, 48, 0.94);
+
+  /* 边框：霓虹青微光 */
+  --glass-border-hairline: rgba(0, 229, 255, 0.2);
+  --glass-border: rgba(0, 229, 255, 0.32);
+  --glass-border-strong: rgba(0, 229, 255, 0.5);
+  --glass-border-intense: rgba(0, 229, 255, 0.72);
+
+  /* 阴影：霓虹发光 */
+  --shadow-glass: rgba(0, 229, 255, 0.12);
+  --shadow-glass-strong: rgba(0, 229, 255, 0.25);
+  --shadow-glass-md: rgba(0, 229, 255, 0.18);
+}
