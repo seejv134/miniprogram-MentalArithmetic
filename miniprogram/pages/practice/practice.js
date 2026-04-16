@@ -25,8 +25,13 @@ Page({
   // 正确答案（不放 data，不参与渲染）
   _correctAnswer: 0,
   _feedbackTimer: null,
+  /** @type {WechatMiniprogram.InnerAudioContext | null} */
+  _correctSound: null,
 
   onLoad() {
+    const sound = wx.createInnerAudioContext();
+    sound.src = '/assets/audio/lucadialessandro-tap-notification-180637.mp3';
+    this._correctSound = sound;
     this._nextQuestion();
   },
 
@@ -89,6 +94,14 @@ Page({
       totalCount: this.data.totalCount + 1
     });
 
+    if (isCorrect) {
+      wx.vibrateShort({ type: 'medium' });
+      if (this._correctSound) {
+        this._correctSound.stop();
+        this._correctSound.play();
+      }
+    }
+
     this._feedbackTimer = setTimeout(() => {
       this._nextQuestion();
     }, 200);
@@ -100,5 +113,9 @@ Page({
 
   onUnload() {
     if (this._feedbackTimer) clearTimeout(this._feedbackTimer);
+    if (this._correctSound) {
+      this._correctSound.destroy();
+      this._correctSound = null;
+    }
   }
 });
