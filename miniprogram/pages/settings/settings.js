@@ -84,6 +84,11 @@ Page({
     this.setData({ 'settings.feedback.vibrationEnabled': vibrationEnabled });
   },
 
+  onToggleEnglishMode(e) {
+    const englishMode = e.detail.value;
+    this.setData({ 'settings.feedback.englishMode': englishMode });
+  },
+
   onToggleCard(e) {
     const type = e.currentTarget.dataset.type;
     this.setData({

@@ -42,8 +42,15 @@ page {
   --text-base: 28rpx;
   --text-md: 32rpx;
   --text-lg: 36rpx;
+  --text-xl: 40rpx;
+  --text-xl-plus: 42rpx;
   --text-2xl: 56rpx;
   --text-3xl: 72rpx;
+
+  /* ── 练习页 · 英语达人（.practice--en）── */
+  --size-practice-en-options-max-width: 640rpx;
+  --size-practice-en-option-min-height: 116rpx;
+  --size-practice-en-blank-min-width: 120rpx;
 
   /* ── 模糊 ───────────────────────────── */
   --blur-sm: blur(10px);

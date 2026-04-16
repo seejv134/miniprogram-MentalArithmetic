@@ -1,5 +1,6 @@
 const { makeOptions } = require('../../utils/generator');
 const { pickRandomWithType } = require('../../utils/candidates');
+const { numberToEnglish } = require('../../utils/englishNumber');
 
 Page({
   data: {
@@ -9,6 +10,10 @@ Page({
     operator: '+',
     // 四个选项
     options: [],
+    // 渲染用派生字段：英文模式下为英文字串，否则为数字字符串
+    op1Text: '0',
+    op2Text: '0',
+    optionTexts: [],
     // 用户选择的答案索引，-1 表示未选
     selectedIndex: -1,
     // 正确答案在 options 中的索引
@@ -21,7 +26,9 @@ Page({
     // 是否有可用题目
     hasQuestion: true,
     // 当前主题 id（与 tokens.wxss 的 .theme-xxx 对应）
-    theme: 'mist'
+    theme: 'mist',
+    // 英语达人模式：true 时答题区所有数字以英文单词呈现
+    englishMode: false
   },
 
   // 正确答案（不放 data，不参与渲染）
@@ -35,11 +42,13 @@ Page({
     sound.src = '/assets/audio/lucadialessandro-tap-notification-180637.mp3';
     this._correctSound = sound;
     this._syncTheme();
+    this._syncEnglishMode();
     this._nextQuestion();
   },
 
   onShow() {
     this._syncTheme();
+    this._syncEnglishMode();
     this._nextQuestion();
   },
 
@@ -48,6 +57,18 @@ Page({
     if (theme !== this.data.theme) {
       this.setData({ theme });
     }
+  },
+
+  _syncEnglishMode() {
+    const fb = getApp().globalData.settings && getApp().globalData.settings.feedback;
+    const englishMode = !!(fb && fb.englishMode);
+    if (englishMode !== this.data.englishMode) {
+      this.setData({ englishMode });
+    }
+  },
+
+  _formatNumber(n, englishMode) {
+    return englishMode ? numberToEnglish(n) : String(n);
   },
 
   _nextQuestion() {
@@ -79,11 +100,19 @@ Page({
     const options = makeOptions(question.result);
     const correctIndex = options.indexOf(question.result);
 
+    const englishMode = this.data.englishMode;
+    const op1Text = this._formatNumber(question.op1, englishMode);
+    const op2Text = this._formatNumber(question.op2, englishMode);
+    const optionTexts = options.map((v) => this._formatNumber(v, englishMode));
+
     this.setData({
       op1: question.op1,
       op2: question.op2,
       operator: question.operator,
       options,
+      op1Text,
+      op2Text,
+      optionTexts,
       correctIndex,
       selectedIndex: -1,
       waiting: false,

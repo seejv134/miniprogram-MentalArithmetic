@@ -105,6 +105,14 @@
   border-bottom: none;
 }
 
+/* 外观卡片内的附加开关行：与主题选择区用轻分隔线区分 */
+.theme-picker__extra {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--glass-border-hairline);
+  border-bottom: none;
+}
+
 .form-label {
   font-size: var(--text-md);
   color: var(--color-text-body);

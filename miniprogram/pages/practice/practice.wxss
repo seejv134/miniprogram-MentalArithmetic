@@ -196,3 +196,54 @@
   transform: scale(0.96);
   background: var(--glass-bg-strong);
 }
+
+/* ═════════════════════════════════════════════
+ * 英语达人模式：题目竖排、选项单列，字号整体降档
+ * 仅在根元素挂 .practice--en 时生效，不影响数字模式
+ * ═════════════════════════════════════════════ */
+.practice--en .practice__question {
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-5xl);
+  text-align: center;
+}
+
+.practice--en .practice__num,
+.practice--en .practice__blank {
+  font-size: var(--text-xl-plus);
+  line-height: 1.35;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.practice--en .practice__operator,
+.practice--en .practice__eq {
+  font-size: var(--text-lg);
+  line-height: 1.35;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.practice--en .practice__blank {
+  min-width: var(--size-practice-en-blank-min-width);
+  padding: 0 var(--space-md) var(--space-sm);
+}
+
+.practice--en .practice__options {
+  grid-template-columns: 1fr;
+  max-width: var(--size-practice-en-options-max-width);
+  gap: var(--space-lg);
+}
+
+.practice--en .practice__option {
+  height: auto;
+  min-height: var(--size-practice-en-option-min-height);
+  padding: var(--space-md) var(--space-xl);
+}
+
+.practice--en .practice__option-text {
+  font-size: var(--text-xl);
+  line-height: 1.4;
+  text-align: center;
+  word-break: break-word;
+}

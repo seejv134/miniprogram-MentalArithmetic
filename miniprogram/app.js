@@ -15,10 +15,11 @@ const THEME_SWITCH_COLOR = {
 };
 
 const DEFAULT_SETTINGS = {
-  /** 答对反馈：与练习页音效/震动一致 */
+  /** 反馈与显示相关的杂项偏好 */
   feedback: {
     soundEnabled: true,
-    vibrationEnabled: true
+    vibrationEnabled: true,
+    englishMode: false
   },
   addition: {
     enabled: true,
@@ -112,6 +113,7 @@ function normalizeSettings(raw) {
   }
   out.feedback.soundEnabled = out.feedback.soundEnabled !== false;
   out.feedback.vibrationEnabled = out.feedback.vibrationEnabled !== false;
+  out.feedback.englishMode = out.feedback.englishMode === true;
   ensureAddSubOperandRange(out);
   ensureMulDivOperands(out);
   return out;

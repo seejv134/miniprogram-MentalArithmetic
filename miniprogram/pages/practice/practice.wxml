@@ -1,4 +1,4 @@
-<view class="practice theme-{{theme}}">
+<view class="practice theme-{{theme}} {{englishMode ? 'practice--en' : ''}}">
   <!-- 顶部栏 -->
   <view class="practice__header">
     <view class="practice__score">{{correctCount}} / {{totalCount}}</view>
@@ -15,9 +15,9 @@
   <!-- 题目区域 -->
   <view wx:else class="practice__body">
     <view class="practice__question">
-      <text class="practice__num">{{op1}}</text>
+      <text class="practice__num">{{op1Text}}</text>
       <text class="practice__operator">{{operator}}</text>
-      <text class="practice__num">{{op2}}</text>
+      <text class="practice__num">{{op2Text}}</text>
       <text class="practice__eq">=</text>
       <text class="practice__blank">?</text>
     </view>
@@ -31,7 +31,7 @@
         bindtap="onOptionTap"
         data-index="{{index}}"
       >
-        <text class="practice__option-text">{{item}}</text>
+        <text class="practice__option-text">{{optionTexts[index]}}</text>
       </view>
     </view>
   </view>

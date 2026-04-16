@@ -33,6 +33,17 @@
           <view class="theme-chip__check" wx:if="{{theme === item.id}}"></view>
         </view>
       </view>
+
+      <view class="form-row theme-picker__extra">
+        <text class="form-label">我是英语达人</text>
+        <switch
+          class="card__switch"
+          checked="{{settings.feedback.englishMode}}"
+          bindchange="onToggleEnglishMode"
+          catchtap="stopProp"
+          color="{{switchColor}}"
+        />
+      </view>
     </view>
   </view>
 
