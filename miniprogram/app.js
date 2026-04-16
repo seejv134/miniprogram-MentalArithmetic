@@ -4,6 +4,11 @@ const { clampOperandRange } = require('./utils/generator');
 const MAX_MUL_DIV_OPERAND = 33;
 
 const DEFAULT_SETTINGS = {
+  /** 答对反馈：与练习页音效/震动一致 */
+  feedback: {
+    soundEnabled: true,
+    vibrationEnabled: true
+  },
   addition: {
     enabled: true,
     custom: { min: 0, max: 10 },
@@ -91,6 +96,11 @@ function normalizeSettings(raw) {
     delete out[k].level;
     delete out[k].useCustom;
   }
+  if (raw.feedback && typeof raw.feedback === 'object') {
+    out.feedback = { ...out.feedback, ...raw.feedback };
+  }
+  out.feedback.soundEnabled = out.feedback.soundEnabled !== false;
+  out.feedback.vibrationEnabled = out.feedback.vibrationEnabled !== false;
   ensureAddSubOperandRange(out);
   ensureMulDivOperands(out);
   return out;

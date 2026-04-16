@@ -1,5 +1,30 @@
 <view class="settings" wx:if="{{settings}}">
 
+  <view class="card">
+    <view class="card__body card__body--no-header">
+      <view class="form-row">
+        <text class="form-label">音效</text>
+        <switch
+          class="card__switch"
+          checked="{{settings.feedback.soundEnabled}}"
+          bindchange="onToggleFeedbackSound"
+          catchtap="stopProp"
+          color="#4A90E2"
+        />
+      </view>
+      <view class="form-row">
+        <text class="form-label">震动</text>
+        <switch
+          class="card__switch"
+          checked="{{settings.feedback.vibrationEnabled}}"
+          bindchange="onToggleFeedbackVibration"
+          catchtap="stopProp"
+          color="#4A90E2"
+        />
+      </view>
+    </view>
+  </view>
+
   <!-- 加法 -->
   <view class="card">
     <view class="card__header">

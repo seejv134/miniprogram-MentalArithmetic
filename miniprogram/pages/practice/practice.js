@@ -95,8 +95,14 @@ Page({
     });
 
     if (isCorrect) {
-      wx.vibrateShort({ type: 'medium' });
-      if (this._correctSound) {
+      const app = getApp();
+      const fb = app.globalData.settings && app.globalData.settings.feedback;
+      const vibrationOn = !fb || fb.vibrationEnabled !== false;
+      const soundOn = !fb || fb.soundEnabled !== false;
+      if (vibrationOn) {
+        wx.vibrateShort({ type: 'medium' });
+      }
+      if (soundOn && this._correctSound) {
         this._correctSound.stop();
         this._correctSound.play();
       }

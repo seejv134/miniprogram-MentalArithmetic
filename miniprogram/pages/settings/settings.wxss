@@ -87,6 +87,11 @@
   padding: var(--space-lg) var(--space-2xl) var(--space-xl);
 }
 
+.card__body--no-header {
+  border-top: none;
+  padding-top: var(--space-xl);
+}
+
 /* 表单行 */
 .form-row {
   display: flex;

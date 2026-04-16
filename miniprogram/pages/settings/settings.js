@@ -49,6 +49,16 @@ Page({
     this.setData({ [key]: e.detail.value });
   },
 
+  onToggleFeedbackSound(e) {
+    const soundEnabled = e.detail.value;
+    this.setData({ 'settings.feedback.soundEnabled': soundEnabled });
+  },
+
+  onToggleFeedbackVibration(e) {
+    const vibrationEnabled = e.detail.value;
+    this.setData({ 'settings.feedback.vibrationEnabled': vibrationEnabled });
+  },
+
   onToggleCard(e) {
     const type = e.currentTarget.dataset.type;
     this.setData({
